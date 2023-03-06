@@ -71,6 +71,26 @@ const flags = {
 		default: false,
 		alias: `u`,
 		desc: `Use docker-compose`
+	},
+	addClient: {
+		type: `boolean`,
+		default: false,
+		desc: `Add a client directory`
+	},
+	clientImage: {
+		type: `string`,
+		default: `node:16-alpine`,
+		desc: `Set client docker image`
+	},
+	clientPort: {
+		type: `string`,
+		default: `3000`,
+		desc: `Set client docker port`
+	},
+	clientCommand: {
+		type: `string`,
+		default: `yarn dev --host`,
+		desc: `Set client docker command`
 	}
 };
 const commands = {

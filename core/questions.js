@@ -121,6 +121,14 @@ module.exports = async () => {
 				validate: value =>
 					value.length < 3 ? `Password is required (min 3 characters)` : true,
 				onState
+			},
+			{
+				active: `Yes`,
+				inactive: `No`,
+				type: `toggle`,
+				name: `addClient`,
+				message: `Do you want to add a client`,
+				onState
 			}
 		]);
 		const dbPort = await prompts({
@@ -137,6 +145,33 @@ module.exports = async () => {
 			dbtype: questions.dbtype,
 			dbport: dbPort.dbport
 		});
+
+		if (config.addClient) {
+			const clientServ = await prompts([
+				{
+					type: `text`,
+					name: `clientImage`,
+					message: `Client docker image`,
+					initial: `node:16-alpine`,
+					onState
+				},
+				{
+					type: `text`,
+					name: `clientPort`,
+					message: `Client docker port`,
+					initial: `3000`,
+					onState
+				},
+				{
+					type: `text`,
+					name: `clientCommand`,
+					message: `Client docker command`,
+					initial: `yarn dev --host`,
+					onState
+				}
+			]);
+			setConfig({...clientServ});
+		}
 
 		return true;
 	} else {

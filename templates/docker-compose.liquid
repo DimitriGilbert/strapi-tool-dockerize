@@ -76,21 +76,22 @@ services:
       - {{name}}
     depends_on:
       - {{name}}DB
-## SolidJS client
-#  {{name | downcase}}Client:
-#    container_name: {{name | downcase}}Client
-#    image: node:16-alpine
-#    restart: unless-stopped
-#    ports:
-#      - '3000:3000'
-#    volumes:
-#      - ./client:/opt/app
-#    working_dir: /opt/app
-#    command: yarn dev --host
-#    networks:
-#      - {{name | downcase}}
-#    depends_on:
-#      - {{name | downcase}}
+{%- if addClient %}
+  {{name | downcase}}Client:
+    container_name: {{name | downcase}}Client
+    image: {{clientImage}}
+    restart: unless-stopped
+    ports:
+      - '{{clientPort}}:{{clientPort}}'
+    volumes:
+      - ./client:/opt/app
+    working_dir: /opt/app
+    command: {{clientCommand}}
+    networks:
+      - {{name | downcase}}
+    depends_on:
+      - {{name | downcase}}
+{%- endif %}
 
 volumes:
   {{name | downcase}}-data:

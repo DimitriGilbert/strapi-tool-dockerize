@@ -17,7 +17,11 @@ const _config = {
 	dbuser: ``,
 	dbpassword: ``,
 	dbport: null,
-	quickStart: false
+	quickStart: false,
+	addClient: false,
+	clientImage: `node:16-alpine`,
+	clientPort: `3000`,
+	clientCommand: `yarn dev --host`
 };
 const setConfig = newConfig => Object.assign(_config, newConfig);
 const config = _config;
